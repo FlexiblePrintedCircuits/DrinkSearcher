@@ -1,5 +1,6 @@
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
+from flask import Flask
 import os
 import time
 
@@ -7,14 +8,17 @@ LINE_CHANNEL_ACCESS_TOKEN = "54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5A
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
+app = Flask(__name__)
+app.debug = False
 
 def main():
-    user_id = "Ue8baeea0f29de588e397c74e7b3dcf31"
+    while(True):
+        user_id = "Ue8baeea0f29de588e397c74e7b3dcf31"
 
-    messages = TextSendMessage(text="Send Toilet Pepar")
-    line_bot_api.push_message(user_id, messages=messages)
+        messages = TextSendMessage(text="Send Toilet Pepar")
+        line_bot_api.push_message(user_id, messages=messages)
 
-    time.sleep(60)
+        time.sleep(60)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))

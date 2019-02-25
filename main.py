@@ -21,6 +21,10 @@ DrinkDate = json.load(f)
 line_bot_api = LineBotApi('54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5AVwXcD5TBYmp8hQzEKT9qC/lic8q4cdrG3KdIJKXJhr7QR+i+gxjkYkpHB4px4h4duTaMlR8iz2Vu57gKKGel9CUq1OVvBsO+r5QdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('84f1dc304d0714dfa5266f0c10a99b00')
 
+def GetMapURL(URLkey):
+    URL = DrinkDate[URLkey][MapURL]
+    return URL
+
 @app.route("/callback", methods=['POST'])
 #この辺はコピペやから何をやっとるかよく分からん
 def callback():
@@ -80,38 +84,49 @@ def callback():
 def handle_message(event):
     if event.type == "message":
         if (event.message.text == "学生課前"):
+            MapURL = GetMapURL("GAKUSE-KA")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
                     TextSendMessage(text="お茶、サイダーなどがあります。"),
+                    TextSendMessage(text="MapURL")
                 ]
             )
         if (event.message.text == "潮騒会館"):
+            MapURL = GetMapURL("SHIOSAI")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
-                    TextSendMessage(text="コーヒー、カフェオレなどがあります。")
+                    TextSendMessage(text="コーヒー、カフェオレなどがあります。"),
+                    TextSendMessage(text="MapURL")
+
                 ]
             )
         if (event.message.text == "図書館下"):
+            MapURL = GetMapURL("TOSHOKAN")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
-                    TextSendMessage(text="コーラ、ファンタなどがあります。")
+                    TextSendMessage(text="コーラ、ファンタなどがあります。"),
+                    TextSendMessage(text="MapURL")
                 ]
             )
         if (event.message.text == "寮食堂前"):
+            MapURL = GetMapURL("RYOSHOKU")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
-                    TextSendMessage(text="コーラ、ファンタなどがあります。")
+                    TextSendMessage(text="コーラ、ファンタなどがあります。"),
+                    TextSendMessage(text="MapURL")
                 ]
             )
         if (event.message.text == "B棟"):
+            MapURL = GetMapURL("B-to")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
-                    TextSendMessage(text="カルピスソーダ、モンスターなどがあります。")
+                    TextSendMessage(text="カルピスソーダ、モンスターなどがあります。"),
+                    TextSendMessage(text="MapURL")
                 ]
             )
 

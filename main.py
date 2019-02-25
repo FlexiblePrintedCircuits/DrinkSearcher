@@ -25,7 +25,7 @@ def GetDrinkDate(DrinkName):
     SendURL = ""
     if DrinkName in DrinkDate["GAKUSE-KA"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.482481,136.825055\n"
-    if DrinkName in DrinkDate["SHIOSAI-"]:
+    if DrinkName in DrinkDate["SHIOSAI"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.482616,136.824430\n"
     if DrinkName in DrinkDate["TOSHOKAN"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.482325,136.824341\n"

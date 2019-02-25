@@ -1,24 +1,119 @@
-from linebot import LineBotApi
-from linebot.models import TextSendMessage
-from flask import Flask
+from flask import Flask, request, abort
+
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,
+)
 import os
-import time
-
-LINE_CHANNEL_ACCESS_TOKEN = "54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5AVwXcD5TBYmp8hQzEKT9qC/lic8q4cdrG3KdIJKXJhr7QR+i+gxjkYkpHB4px4h4duTaMlR8iz2Vu57gKKGel9CUq1OVvBsO+r5QdB04t89/1O/w1cDnyilFU="
-
-line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+import json
 
 app = Flask(__name__)
 app.debug = False
 
-def main():
-    while(True):
-        user_id = "Ue8baeea0f29de588e397c74e7b3dcf31"
+f = open('date.json', 'r')
+DrinkDate = json.load(f)
 
-        messages = TextSendMessage(text="Send Toilet Pepar")
-        line_bot_api.push_message(user_id, messages=messages)
+line_bot_api = LineBotApi('54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5AVwXcD5TBYmp8hQzEKT9qC/lic8q4cdrG3KdIJKXJhr7QR+i+gxjkYkpHB4px4h4duTaMlR8iz2Vu57gKKGel9CUq1OVvBsO+r5QdB04t89/1O/w1cDnyilFU=')
+handler = WebhookHandler('84f1dc304d0714dfa5266f0c10a99b00')
 
-        time.sleep(60)
+@app.route("/callback", methods=['POST'])
+#この辺はコピペやから何をやっとるかよく分からん
+def callback():
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
+
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
+    # handle webhook body
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+
+    return 'OK'
+
+'''def make_image_message(PeparDis):
+
+    global messages
+
+    if (PeparDis <= 50) and (PeparDis > 40):
+        messages = ImageSendMessage(
+            original_content_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214183132.jpg",
+            preview_image_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214183132.jpg"
+        )
+    elif (PeparDis <= 40) and (PeparDis > 30):
+        messages = ImageSendMessage(
+            original_content_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182919.jpg",
+            preview_image_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182919.jpg"
+        )
+    elif (PeparDis <= 30) and (PeparDis > 20):
+        messages = ImageSendMessage(
+            original_content_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182922.jpg",
+            preview_image_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182922.jpg"
+        )
+    elif (PeparDis <= 20) and (PeparDis > 10):
+        messages = ImageSendMessage(
+            original_content_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182925.jpg",
+            preview_image_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182925.jpg"
+        )
+    elif (PeparDis <= 10) and (PeparDis > 0):
+        messages = ImageSendMessage(
+            original_content_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182927.jpg",
+            preview_image_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182927.jpg"
+        )
+    elif (PeparDis <= 10):
+        messages = ImageSendMessage(
+            original_content_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182930.jpg",
+            preview_image_url="https://cdn-ak.f.st-hatena.com/images/fotolife/h/hahayata/20190214/20190214182930.jpg"
+        )
+
+    return messages'''
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    if event.type == "message":
+        if (event.message.text == "学生課前"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text="お茶、サイダーなどがあります。"),
+                ]
+            )
+        if (event.message.text == "潮騒会館"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text="コーヒー、カフェオレなどがあります。")
+                ]
+            )
+        if (event.message.text == "図書館下"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text="コーラ、ファンタなどがあります。")
+                ]
+            )
+        if (event.message.text == "寮食堂前"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text="コーラ、ファンタなどがあります。")
+                ]
+            )
+        if (event.message.text == "B棟"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text="カルピスソーダ、モンスターなどがあります。")
+                ]
+            )
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))

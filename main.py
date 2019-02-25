@@ -24,15 +24,15 @@ handler = WebhookHandler('84f1dc304d0714dfa5266f0c10a99b00')
 def GetDrinkDate(DrinkName):
     SendURL = ""
     if DrinkName in DrinkDate["GAKUSE-KA"]:
-        SendURL = SendURL + "https://www.google.com/maps?q=34.482481,136.825055\n"
+        SendURL = SendURL + "学生課前\nhttps://www.google.com/maps?q=34.482481,136.825055\n\n"
     if DrinkName in DrinkDate["SHIOSAI"]:
-        SendURL = SendURL + "https://www.google.com/maps?q=34.482616,136.824430\n"
+        SendURL = SendURL + "潮騒会館\nhttps://www.google.com/maps?q=34.482616,136.824430\n\n"
     if DrinkName in DrinkDate["TOSHOKAN"]:
-        SendURL = SendURL + "https://www.google.com/maps?q=34.482325,136.824341\n"
+        SendURL = SendURL + "図書館下\nhttps://www.google.com/maps?q=34.482325,136.824341\n\n"
     if DrinkName in DrinkDate["RYOSHOKU"]:
-        SendURL = SendURL + "https://www.google.com/maps?q=34.480867,136.825025\n"
+        SendURL = SendURL + "寮食堂前\nhttps://www.google.com/maps?q=34.480867,136.825025\n\n"
     if DrinkName in DrinkDate["B-to"]:
-        SendURL = SendURL + "https://www.google.com/maps?q=34.480462,136.824733\n"
+        SendURL = SendURL + "B棟１階\nhttps://www.google.com/maps?q=34.480462,136.824733\n\n"
 
     return SendURL
 
@@ -162,7 +162,7 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 [
-                    TextSendMessage(text=MapURLs)
+                    TextSendMessage(text=MapURLs + "にありますよ！")
                 ]
             )
 

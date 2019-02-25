@@ -38,6 +38,7 @@ def GetDrinkDate(DrinkName):
 
 def DrinkSearch(DrinkName):
         DrinkList = list(DrinkDate.values())
+        DrinkList = list(set(DrinkList))
         if DrinkName in DrinkList:
             return True
         else:

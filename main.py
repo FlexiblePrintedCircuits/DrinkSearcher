@@ -84,49 +84,44 @@ def callback():
 def handle_message(event):
     if event.type == "message":
         if (event.message.text == "学生課前"):
-            MapURL = GetMapURL("GAKUSE-KA")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
                     TextSendMessage(text="お茶、サイダーなどがあります。"),
-                    TextSendMessage(text="MapURL")
+                    TextSendMessage(text="https://www.google.com/maps?q=34.482481,136.825055")
                 ]
             )
         if (event.message.text == "潮騒会館"):
-            MapURL = GetMapURL("SHIOSAI")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
                     TextSendMessage(text="コーヒー、カフェオレなどがあります。"),
-                    TextSendMessage(text="MapURL")
+                    TextSendMessage(text="https://www.google.com/maps?q=34.482616,136.824430")
 
                 ]
             )
         if (event.message.text == "図書館下"):
-            MapURL = GetMapURL("TOSHOKAN")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
                     TextSendMessage(text="コーラ、ファンタなどがあります。"),
-                    TextSendMessage(text="MapURL")
+                    TextSendMessage(text="https://www.google.com/maps?q=34.482325,136.824341")
                 ]
             )
         if (event.message.text == "寮食堂前"):
-            MapURL = GetMapURL("RYOSHOKU")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
                     TextSendMessage(text="コーラ、ファンタなどがあります。"),
-                    TextSendMessage(text="MapURL")
+                    TextSendMessage(text="https://www.google.com/maps?q=34.480867,136.825025")
                 ]
             )
         if (event.message.text == "B棟"):
-            MapURL = GetMapURL("B-to")
             line_bot_api.reply_message(
                 event.reply_token,
                 [
                     TextSendMessage(text="カルピスソーダ、モンスターなどがあります。"),
-                    TextSendMessage(text="MapURL")
+                    TextSendMessage(text="https://www.google.com/maps?q=34.480462,136.824733")
                 ]
             )
 

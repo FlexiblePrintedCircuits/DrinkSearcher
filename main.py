@@ -37,12 +37,18 @@ def GetDrinkDate(DrinkName):
     return SendURL
 
 def DrinkSearch(DrinkName):
-        DrinkList = list(DrinkDate.values())
-        DrinkLists = list(set(DrinkList))
-        if DrinkName in DrinkLists:
-            return True
-        else:
-            return False
+    if DrinkDate["GAKUSE-KA"] in DrinkName:
+        return True
+    elif DrinkDate["SHIOSAI"] in DrinkName:
+        return True
+    elif DrinkDate["TOSHOKAN"] in DrinkName:
+        return True
+    elif DrinkDate["RYOSHOKU"] in DrinkName:
+        return True
+    elif DrinkDate["B-to"] in DrinkName:
+        return True
+    else:
+        return False
 
 @app.route("/callback", methods=['POST'])
 #この辺はコピペやから何をやっとるかよく分からん

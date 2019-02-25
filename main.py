@@ -22,7 +22,7 @@ line_bot_api = LineBotApi('54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5AVw
 handler = WebhookHandler('84f1dc304d0714dfa5266f0c10a99b00')
 
 def GetMapURL(URLkey):
-    URL = DrinkDate[URLkey][MapURL]
+    URL = DrinkDate[URLkey]["MapURL"]
     return URL
 
 @app.route("/callback", methods=['POST'])

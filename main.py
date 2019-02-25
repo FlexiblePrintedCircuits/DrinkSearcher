@@ -23,29 +23,29 @@ handler = WebhookHandler('84f1dc304d0714dfa5266f0c10a99b00')
 
 def GetDrinkDate(DrinkName):
     SendURL = ""
-    if DrinkDate["GAKUSE-KA"] in DrinkName:
+    if DrinkName in DrinkDate["GAKUSE-KA"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.482481,136.825055\n"
-    if DrinkDate["SHIOSAI"] in DrinkName:
+    if DrinkName in DrinkDate["SHIOSAI-"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.482616,136.824430\n"
-    if DrinkDate["TOSHOKAN"] in DrinkName:
+    if DrinkName in DrinkDate["TOSHOKAN"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.482325,136.824341\n"
-    if DrinkDate["RYOSHOKU"] in DrinkName:
+    if DrinkName in DrinkDate["RYOSHOKU"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.480867,136.825025\n"
-    if DrinkDate["B-to"] in DrinkName:
+    if DrinkName in DrinkDate["B-to"]:
         SendURL = SendURL + "https://www.google.com/maps?q=34.480462,136.824733\n"
 
     return SendURL
 
 def DrinkSearch(DrinkName):
-    if DrinkDate["GAKUSE-KA"] in DrinkName:
+    if DrinkName in DrinkDate["GAKUSE-KA"]:
         return True
-    elif DrinkDate["SHIOSAI"] in DrinkName:
+    elif DrinkName in DrinkDate["SHIOSAI"]:
         return True
-    elif DrinkDate["TOSHOKAN"] in DrinkName:
+    elif DrinkName in DrinkDate["TOSHOKAN"]:
         return True
-    elif DrinkDate["RYOSHOKU"] in DrinkName:
+    elif DrinkName in DrinkDate["RYOSHOKU"]:
         return True
-    elif DrinkDate["B-to"] in DrinkName:
+    elif DrinkName in DrinkDate["B-to"]:
         return True
     else:
         return False

@@ -51,7 +51,6 @@ def DrinkSearch(DrinkName):
         return False
 
 @app.route("/callback", methods=['POST'])
-#この辺はコピペやから何をやっとるかよく分からん
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']

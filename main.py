@@ -21,9 +21,27 @@ DrinkDate = json.load(f)
 line_bot_api = LineBotApi('54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5AVwXcD5TBYmp8hQzEKT9qC/lic8q4cdrG3KdIJKXJhr7QR+i+gxjkYkpHB4px4h4duTaMlR8iz2Vu57gKKGel9CUq1OVvBsO+r5QdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('84f1dc304d0714dfa5266f0c10a99b00')
 
-def GetMapURL(URLkey):
-    URL = DrinkDate[URLkey]["MapURL"]
-    return URL
+def GetDrinkDate(DrinkName):
+    SendURL = ""
+    if DrinkDate["GAKUSE-KA"] in DrinkName:
+        SendURL = SendURL + "https://www.google.com/maps?q=34.482481,136.825055\n"
+    if DrinkDate["SHIOSAI"] in DrinkName:
+        SendURL = SendURL + "https://www.google.com/maps?q=34.482616,136.824430\n"
+    if DrinkDate["TOSHOKAN"] in DrinkName:
+        SendURL = SendURL + "https://www.google.com/maps?q=34.482325,136.824341\n"
+    if DrinkDate["RYOSHOKU"] in DrinkName:
+        SendURL = SendURL + "https://www.google.com/maps?q=34.480867,136.825025\n"
+    if DrinkDate["B-to"] in DrinkName:
+        SendURL = SendURL + "https://www.google.com/maps?q=34.480462,136.824733\n"
+
+    return SendURL
+
+def DrinkSearch(DrinkName):
+        DrinkList = list(DrinkDate.values())
+        if DrinkName in DrinkList:
+            return True
+        else:
+            return False
 
 @app.route("/callback", methods=['POST'])
 #この辺はコピペやから何をやっとるかよく分からん
@@ -83,6 +101,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if event.type == "message":
+        DrinkTorF = DrinkSearch(event.message.text)
         if (event.message.text == "学生課前"):
             line_bot_api.reply_message(
                 event.reply_token,
@@ -122,6 +141,21 @@ def handle_message(event):
                 [
                     TextSendMessage(text="カルピスソーダ、モンスターなどがあります。"),
                     TextSendMessage(text="https://www.google.com/maps?q=34.480462,136.824733")
+                ]
+            )
+        if (DrinkTorF == False):
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text="ごめんなさい、その飲み物は学校の自販機にないみたい。別のを探してね。")
+                ]
+            )
+        elif (DrinkTorF == True):
+            MapURLs = GetDrinkDate(event.message.text)
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text=MapURLs)
                 ]
             )
 

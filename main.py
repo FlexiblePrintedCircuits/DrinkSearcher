@@ -151,13 +151,6 @@ app.debug = False
 line_bot_api = LineBotApi("54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5AVwXcD5TBYmp8hQzEKT9qC/lic8q4cdrG3KdIJKXJhr7QR+i+gxjkYkpHB4px4h4duTaMlR8iz2Vu57gKKGel9CUq1OVvBsO+r5QdB04t89/1O/w1cDnyilFU=")
 handler = WebhookHandler("84f1dc304d0714dfa5266f0c10a99b00")
 
-def get_profile(self, user_id, timeout=None):
-    response = self._get(
-        '/v2/bot/profile/{user_id}'.format(user_id=user_id),
-        timeout=timeout
-    )
-
-    return Profile.new_from_json_dict(response.json)
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -183,7 +176,13 @@ def response_message(event):
         # LINEに登録されているstatus_messageが空の場合は、"なし"という文字列を代わりの値とする
         status_msg = "なし"
 
-    messages = get_profile(profile.user_id)
+    messages = TemplateSendMessage(alt_text="Buttons template",
+                                   template=ButtonsTemplate(
+                                       thumbnail_image_url=profile.picture_url,
+                                       title=profile.display_name,
+                                       text=f"User Id: {profile.user_id}...\n"
+                                            f"Status Message: {status_msg}",
+                                       actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
 
     line_bot_api.reply_message(event.reply_token, messages=messages)
 

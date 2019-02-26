@@ -1,4 +1,4 @@
-'''from flask import Flask, request, abort
+from flask import Flask, request, abort
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -130,9 +130,9 @@ def handle_message(event):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
-    app.run(host="0.0.0.0", port=port)'''
+    app.run(host="0.0.0.0", port=port)
 
-import os
+'''import os
 
 from flask import Flask, request, abort
 from linebot import (
@@ -188,4 +188,4 @@ def response_message(event):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port)'''

@@ -18,8 +18,8 @@ app.debug = False
 f = open('date.json', 'r')
 DrinkDate = json.load(f)
 
-line_bot_api = LineBotApi('54SfB4WOh1G2/yf/1j3+BQdIGOAElTuieI0y12hqJ04+BsK3i5AVwXcD5TBYmp8hQzEKT9qC/lic8q4cdrG3KdIJKXJhr7QR+i+gxjkYkpHB4px4h4duTaMlR8iz2Vu57gKKGel9CUq1OVvBsO+r5QdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('84f1dc304d0714dfa5266f0c10a99b00')
+line_bot_api = LineBotApi('LINE_BOT_TOKEN')
+handler = WebhookHandler('LINE_BOT_SECRET')
 
 def GetDrinkDate(DrinkName):
     SendURL = ""
